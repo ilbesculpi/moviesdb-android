@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.ilbesculpi.themoviedroid.domain.models.Movie
 import io.reactivex.Observable
+import okhttp3.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import retrofit2.Call
@@ -16,6 +17,7 @@ class RemoteStore {
 
     companion object {
         val API_URL: String = "https://api.themoviedb.org/3/";
+        val API_KEY: String = "7f8661a70a2785177ff438102e23a9aa";
         val LANGUAGE: String = "en_US";
     }
     
@@ -28,15 +30,32 @@ class RemoteStore {
         val gson: Gson = GsonBuilder()
                 .setLenient()
                 .create();
+    
+        val httpClient = OkHttpClient().newBuilder();
+        
+        httpClient.interceptors().add(object: Interceptor {
+            override fun intercept(chain: Interceptor.Chain?): Response {
+                var request: Request = chain!!.request();
+                val url: HttpUrl = request.url()
+                        .newBuilder()
+                        .addQueryParameter("api_key", API_KEY)
+                        .build();
+                request = request.newBuilder()
+                        .url(url)
+                        .build();
+                return chain.proceed(request);
+            }
+        });
         
         val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(API_URL)
+                .client(httpClient.build())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         
-        val client: TheMovieDatabaseAPI = retrofit.create(TheMovieDatabaseAPI::class.java);
+        val api: TheMovieDatabaseAPI = retrofit.create(TheMovieDatabaseAPI::class.java);
         
-        return client;
+        return api;
     }
     
     fun popularMovies(page: Int) : Observable<MovieListResponse> {
