@@ -4,17 +4,18 @@ import com.ilbesculpi.themoviedroid.domain.models.Movie
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TheMovieDatabaseAPI {
     
-    @GET("movie/popular?page={page}&language={language}")
-    fun popularMovies(@Path("page") page: Int, @Path("language") language: String) : Call<MovieListResponse>;
+    @GET("movie/popular")
+    fun popularMovies(@Query("page") page: Int, @Query("language") language: String) : Call<MovieListResponse>;
     
-    @GET("movie/top_rated?page={page}&language={language}\"")
-    fun topRatedMovies(@Path("page") page: Int, @Path("language") language: String) : Call<MovieListResponse>;
+    @GET("movie/top_rated")
+    fun topRatedMovies(@Query("page") page: Int, @Query("language") language: String) : Call<MovieListResponse>;
     
-    @GET("movie_upcoming?page={page}&language={language}\"")
-    fun upcomingMovies(@Path("page") page: Int, @Path("language") language: String) : Call<MovieListResponse>;
+    @GET("movie_upcoming")
+    fun upcomingMovies(@Query("page") page: Int, @Query("language") language: String) : Call<MovieListResponse>;
 
 }
 
