@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/menu_movies"
-        android:icon="@drawable/icon_movies"
+        android:icon="@drawable/icon_tab_movies"
         android:title="@string/movies" />
 
     <item
