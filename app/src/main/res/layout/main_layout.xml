@@ -43,7 +43,7 @@
 
             <android.support.design.widget.TabItem
                 android:id="@+id/menu_tv_shows"
-                android:icon="@drawable/icon_tv_shows"
+                android:icon="@drawable/icon_tab_tv_shows"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_shows" />
