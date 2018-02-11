@@ -8,17 +8,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when(item.itemId) {
-            R.id.navigation_home -> {
-                message.setText(R.string.title_home)
+        when( item.itemId ) {
+            R.id.menu_movies -> {
+                message.setText(R.string.movies)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                message.setText(R.string.title_dashboard)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-                message.setText(R.string.title_notifications)
+            R.id.menu_tv_shows -> {
+                message.setText(R.string.tv_shows)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -28,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
+    
 }
