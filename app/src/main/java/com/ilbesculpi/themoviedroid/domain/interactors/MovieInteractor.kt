@@ -1,12 +1,12 @@
 package com.ilbesculpi.themoviedroid.domain.interactors
 
-import android.database.Observable
 import com.ilbesculpi.themoviedroid.domain.models.Movie
+import io.reactivex.Observable
 
 interface MovieInteractor {
 
-    fun fetchPopularMovies() : Observable<List<Movie>>;
-    fun fetchTopRatedMovies() : Observable<List<Movie>>;
-    fun fetchUpcomingMovies() : Observable<List<Movie>>;
+    fun fetchPopularMovies(page: Int) : Observable<List<Movie>>
+    fun fetchTopRatedMovies(page: Int) : Observable<List<Movie>>
+    fun fetchUpcomingMovies(page: Int) : Observable<List<Movie>>
 
 }
