@@ -1,6 +1,8 @@
 package com.ilbesculpi.themoviedroid.domain.models
 
-enum class Section {
+import java.io.Serializable
+
+enum class Section: Serializable {
     
     MOVIES,
     SHOWS;
