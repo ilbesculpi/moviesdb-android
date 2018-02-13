@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.ilbesculpi.themoviedroid.R
+import com.ilbesculpi.themoviedroid.domain.models.Section
+import com.ilbesculpi.themoviedroid.ui.home.HomeFragment
 import com.ilbesculpi.themoviedroid.ui.movies.list.MovieListFragment
 import com.ilbesculpi.themoviedroid.ui.shows.list.TvShowListFragment
 import kotlinx.android.synthetic.main.main_layout.*
@@ -84,12 +86,12 @@ class MainActivity : AppCompatActivity() {
             assert(position < 0 || position > 1);
             
             if( position == 0 ) {
-                val fragment = MovieListFragment.newInstance();
+                val fragment = HomeFragment.newInstance(Section.MOVIES);
                 return fragment;
             }
             
             if( position == 1 ) {
-                val fragment = TvShowListFragment.newInstance();
+                val fragment = HomeFragment.newInstance(Section.SHOWS);
                 return fragment;
             }
             
