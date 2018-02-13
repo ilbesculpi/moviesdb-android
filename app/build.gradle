@@ -2,10 +2,12 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+
 
 android {
+
     compileSdkVersion 26
+
     defaultConfig {
         applicationId "com.ilbesculpi.themoviedroid"
         minSdkVersion 15
@@ -15,12 +17,18 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    kapt {
+        generateStubs = true
+    }
+
 }
 
 dependencies {

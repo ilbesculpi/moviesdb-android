@@ -91,7 +91,7 @@ class HomeFragment : BaseFragmentView(), Home.View {
     }
     
     override fun navigateToCategoryScreen(category: Category) {
-    
+        mHolder.navigateToCategoryScreen(section, category);
     }
 
 }

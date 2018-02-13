@@ -105,10 +105,17 @@ class MainActivity : AppCompatActivity(), MainContracts.View {
         when( section ) {
             Section.MOVIES -> {
                 val fragment: MovieListFragment = MovieListFragment.newInstance(category);
-                
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack("MOVIES")
+                        .commit();
             }
             Section.SHOWS -> {
-            
+                val fragment: TvShowListFragment = TvShowListFragment.newInstance(category);
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack("SHOWS")
+                        .commit();
             }
         }
     }

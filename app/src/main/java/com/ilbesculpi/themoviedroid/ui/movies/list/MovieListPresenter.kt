@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 class MovieListPresenter : BasePresenter(), MovieList.Presenter {
     
-    @Inject
     override lateinit var view: MovieList.View;
     
     @Inject
