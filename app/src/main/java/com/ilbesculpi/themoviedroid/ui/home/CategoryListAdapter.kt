@@ -32,7 +32,7 @@ class CategoryListAdapter(context: Context, resourceId: Int, var objects: List<C
         }
         
         val category: Category = getItem(position);
-        viewHolder.display(category);
+        viewHolder.display(category, context);
         return row;
     }
     
@@ -41,8 +41,9 @@ class CategoryListAdapter(context: Context, resourceId: Int, var objects: List<C
         lateinit var imageView: ImageView;
         lateinit var titleLabel: TextView;
         
-        fun display(category: Category) {
-            titleLabel.text = category.name;
+        fun display(category: Category, context: Context) {
+            imageView.setImageResource(category.iconId);
+            titleLabel.text = context.getString(category.titleId);
         }
         
     }

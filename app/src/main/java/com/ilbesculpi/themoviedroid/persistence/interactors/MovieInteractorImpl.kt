@@ -17,11 +17,11 @@ class MovieInteractorImpl : MovieInteractor {
     override fun fetchCategoriesForSection(section: Section): Observable<List<Category>> {
         when( section ) {
             Section.MOVIES -> {
-                val categories = arrayListOf<Category>(Category.POPULARS, Category.TOP_RATED, Category.UPCOMING);
+                val categories = arrayListOf<Category>(Category.POPULAR, Category.TOP_RATED, Category.UPCOMING);
                 return Observable.just(categories);
             }
             Section.SHOWS -> {
-                val categories = arrayListOf<Category>(Category.POPULARS, Category.TOP_RATED);
+                val categories = arrayListOf<Category>(Category.POPULAR, Category.TOP_RATED);
                 return Observable.just(categories);
             }
         }
