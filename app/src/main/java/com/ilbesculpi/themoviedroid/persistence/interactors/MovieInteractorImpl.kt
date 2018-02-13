@@ -10,10 +10,10 @@ import javax.inject.Inject
 class MovieInteractorImpl : MovieInteractor {
     
     @Inject
-    var remoteStore: RemoteStore? = null;
+    lateinit var remoteStore: RemoteStore;
     
     override fun fetchPopularMovies(page: Int): Observable<List<Movie>> {
-        return remoteStore?.popularMovies(page)!!
+        return remoteStore.popularMovies(page)
             .flatMap { results ->
                 Observable.just(results.results!!)
             }
@@ -23,7 +23,7 @@ class MovieInteractorImpl : MovieInteractor {
     }
     
     override fun fetchTopRatedMovies(page: Int): Observable<List<Movie>> {
-        return remoteStore?.topRatedMovies(page)!!
+        return remoteStore.topRatedMovies(page)
                 .flatMap { results ->
                     Observable.just(results.results!!)
                 }
@@ -33,7 +33,7 @@ class MovieInteractorImpl : MovieInteractor {
     }
     
     override fun fetchUpcomingMovies(page: Int): Observable<List<Movie>> {
-        return remoteStore?.upcomingMovies(page)!!
+        return remoteStore.upcomingMovies(page)
                 .flatMap { results ->
                     Observable.just(results.results!!)
                 }

@@ -6,9 +6,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.ilbesculpi.themoviedroid.R
+import com.ilbesculpi.themoviedroid.TheMovieDroidApp
 import com.ilbesculpi.themoviedroid.domain.models.Section
+import com.ilbesculpi.themoviedroid.ui.common.BaseFragmentView
 import javax.inject.Inject
 
 
@@ -16,7 +17,7 @@ import javax.inject.Inject
  * Home screen.
  * It displays the list of categories (Popular, Top Rated, Upcoming) for movies or tv shows.
  */
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragmentView(), Home.View {
 
     @Inject
     lateinit var presenter: Home.Presenter;
@@ -37,10 +38,13 @@ class HomeFragment : Fragment() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
-        presenter = configurePresenter();
         if( arguments != null ) {
             section = arguments.getSerializable("section") as Section;
         }
+    }
+    
+    override fun configureView() {
+        appComponent.inject(this);
     }
     
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
