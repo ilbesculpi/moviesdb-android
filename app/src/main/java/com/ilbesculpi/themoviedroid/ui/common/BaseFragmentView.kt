@@ -13,12 +13,7 @@ abstract class BaseFragmentView: Fragment(), Base.View {
     val appComponent: AppComponent
         get() { return appContext.mApplicationComponent; }
     
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
-        configureView();
-    }
-    
-    abstract protected fun configureView();
+    abstract protected fun configureComponents();
     
     override fun startLoadingView() {
     

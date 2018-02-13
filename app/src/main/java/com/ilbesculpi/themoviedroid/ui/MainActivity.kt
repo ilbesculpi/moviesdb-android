@@ -86,13 +86,11 @@ class MainActivity : AppCompatActivity() {
             assert(position < 0 || position > 1);
             
             if( position == 0 ) {
-                val fragment = MovieListFragment.newInstance();
+                val fragment = HomeFragment.newInstance(Section.MOVIES);
                 return fragment;
             }
             
             if( position == 1 ) {
-                //val fragment = TvShowListFragment.newInstance();
-                //return fragment;
                 val fragment = HomeFragment.newInstance(Section.SHOWS);
                 return fragment;
             }
