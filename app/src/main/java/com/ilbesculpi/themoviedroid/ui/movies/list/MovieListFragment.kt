@@ -7,43 +7,46 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.ilbesculpi.themoviedroid.R
+import com.ilbesculpi.themoviedroid.domain.models.Category
 import com.ilbesculpi.themoviedroid.domain.models.Movie
 import com.ilbesculpi.themoviedroid.persistence.interactors.MovieInteractorImpl
 import com.ilbesculpi.themoviedroid.persistence.network.RemoteStore
+import com.ilbesculpi.themoviedroid.ui.common.BaseFragmentView
 import javax.inject.Inject
+import kotlin.text.Typography.section
 
 /**
  * Movie List Screen.
  */
-class MovieListFragment : Fragment(), MovieList.View {
+class MovieListFragment : BaseFragmentView(), MovieList.View {
     
     @Inject
     lateinit var presenter: MovieList.Presenter;
     
+    lateinit var category: Category;
+    
     companion object {
-        fun newInstance(): MovieListFragment {
+        fun newInstance(category: Category): MovieListFragment {
             val fragment = MovieListFragment();
             val args = Bundle();
+            args.putSerializable("category", category);
             fragment.arguments = args;
             return fragment;
         }
     }
     
-    fun configurePresenter() : MovieListPresenter {
-        val presenter = MovieListPresenter();
-        val interactor = MovieInteractorImpl();
-        interactor.remoteStore = RemoteStore();
-        presenter.interactor = interactor;
-        return presenter;
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
-        presenter = configurePresenter();
-        presenter.view = this;
+        configureComponents();
         if(arguments != null) {
-        
+            category = arguments.getSerializable("category") as Category;
         }
+    }
+    
+    override fun configureComponents() {
+        appComponent.inject(this);
+        presenter.category = category;
+        presenter.view = this;
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -54,11 +57,11 @@ class MovieListFragment : Fragment(), MovieList.View {
     
     override fun onStart() {
         super.onStart();
+        presenter.onViewReady();
     }
     
     override fun onResume() {
         super.onResume();
-        presenter.onViewReady();
     }
     
     override fun displayMovies(movies: List<Movie>) {

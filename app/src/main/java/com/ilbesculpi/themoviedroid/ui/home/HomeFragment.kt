@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ListView
 import com.ilbesculpi.themoviedroid.R
 import com.ilbesculpi.themoviedroid.domain.models.Category
@@ -57,6 +58,10 @@ class HomeFragment : BaseFragmentView(), Home.View {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.home_layout, container, false);
         listView = view.findViewById<ListView>(android.R.id.list);
+        listView.onItemClickListener = AdapterView.OnItemClickListener { p0, p1, p2, p3 ->
+            val category = p0?.adapter?.getItem(p2) as Category;
+            navigateToCategoryScreen(category);
+        };
         return view;
     }
     
@@ -83,6 +88,10 @@ class HomeFragment : BaseFragmentView(), Home.View {
     override fun displayCategories(categories: List<Category>) {
         val adapter = CategoryListAdapter(context, R.layout.category_list_item, categories);
         listView.adapter = adapter;
+    }
+    
+    override fun navigateToCategoryScreen(category: Category) {
+    
     }
 
 }

@@ -5,6 +5,7 @@ import com.ilbesculpi.themoviedroid.domain.interactors.MovieInteractor
 import com.ilbesculpi.themoviedroid.domain.models.Category
 import com.ilbesculpi.themoviedroid.domain.models.Movie
 import com.ilbesculpi.themoviedroid.domain.models.Section
+import com.ilbesculpi.themoviedroid.persistence.network.MovieListResponse
 import com.ilbesculpi.themoviedroid.persistence.network.RemoteStore
 import javax.inject.Inject
 
@@ -27,34 +28,24 @@ class MovieInteractorImpl : MovieInteractor {
         }
     }
     
-    override fun fetchPopularMovies(page: Int): Observable<List<Movie>> {
-        return remoteStore.popularMovies(page)
-            .flatMap { results ->
-                Observable.just(results.results!!)
-            }
-            .flatMap { movies ->
-                 Observable.just(movies.asList())
-            }
+    override fun fetchMovies(category: Category, page: Int): Observable<MovieListResponse> {
+        return when( category ) {
+            Category.POPULAR -> fetchPopularMovies(page);
+            Category.TOP_RATED -> fetchTopRatedMovies(page);
+            Category.UPCOMING -> fetchUpcomingMovies(page);
+        }
     }
     
-    override fun fetchTopRatedMovies(page: Int): Observable<List<Movie>> {
-        return remoteStore.topRatedMovies(page)
-                .flatMap { results ->
-                    Observable.just(results.results!!)
-                }
-                .flatMap { movies ->
-                    Observable.just(movies.asList())
-                }
+    override fun fetchPopularMovies(page: Int): Observable<MovieListResponse> {
+        return remoteStore.popularMovies(page);
     }
     
-    override fun fetchUpcomingMovies(page: Int): Observable<List<Movie>> {
-        return remoteStore.upcomingMovies(page)
-                .flatMap { results ->
-                    Observable.just(results.results!!)
-                }
-                .flatMap { movies ->
-                    Observable.just(movies.asList())
-                }
+    override fun fetchTopRatedMovies(page: Int): Observable<MovieListResponse> {
+        return remoteStore.topRatedMovies(page);
+    }
+    
+    override fun fetchUpcomingMovies(page: Int): Observable<MovieListResponse> {
+        return remoteStore.upcomingMovies(page);
     }
     
 }

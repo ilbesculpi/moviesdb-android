@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.ilbesculpi.themoviedroid.R
+import com.ilbesculpi.themoviedroid.domain.models.Category
 import com.ilbesculpi.themoviedroid.domain.models.Section
 import com.ilbesculpi.themoviedroid.ui.home.HomeFragment
 import com.ilbesculpi.themoviedroid.ui.movies.list.MovieListFragment
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.main_layout.*
 /**
  * Represents the main layout of the application.
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContracts.View {
     
     /**
      * The [android.support.v4.view.PagerAdapter] that will provide
@@ -98,6 +99,18 @@ class MainActivity : AppCompatActivity() {
             return Fragment();
         }
         
+    }
+    
+    override fun navigateToCategoryScreen(section: Section, category: Category) {
+        when( section ) {
+            Section.MOVIES -> {
+                val fragment: MovieListFragment = MovieListFragment.newInstance(category);
+                
+            }
+            Section.SHOWS -> {
+            
+            }
+        }
     }
     
 }
