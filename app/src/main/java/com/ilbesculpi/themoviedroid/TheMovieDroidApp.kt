@@ -5,6 +5,7 @@ import com.ilbesculpi.themoviedroid.dagger.AppComponent
 import com.ilbesculpi.themoviedroid.dagger.AppModule
 import com.ilbesculpi.themoviedroid.dagger.DaggerAppComponent
 
+
 class TheMovieDroidApp : Application() {
     
     lateinit var mApplicationComponent: AppComponent;
