@@ -5,12 +5,14 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.ilbesculpi.themoviedroid.R
 import com.ilbesculpi.themoviedroid.domain.models.Category
 import com.ilbesculpi.themoviedroid.domain.models.Section
+import com.ilbesculpi.themoviedroid.ui.common.HostFragment
 import com.ilbesculpi.themoviedroid.ui.home.HomeFragment
 import com.ilbesculpi.themoviedroid.ui.movies.list.MovieListFragment
 import com.ilbesculpi.themoviedroid.ui.shows.list.TvShowListFragment
@@ -21,15 +23,21 @@ import kotlinx.android.synthetic.main.main_layout.*
  */
 class MainActivity : AppCompatActivity(), MainContracts.View {
     
-    /**
-     * The [android.support.v4.view.PagerAdapter] that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * [android.support.v4.app.FragmentStatePagerAdapter].
-     */
-    private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
+
+    private var pagerAdapter: SectionsPagerAdapter? = null;
+    
+    lateinit private var viewPager: ViewPager;
+    
+    private var fragmentTabs: MutableList<HostFragment>;
+    
+    init {
+        fragmentTabs = mutableListOf();
+        val moviesFragment = HomeFragment.newInstance(Section.MOVIES);
+        fragmentTabs.add(HostFragment.newInstance(moviesFragment));
+        val showsFragment = HomeFragment.newInstance(Section.SHOWS)
+        fragmentTabs.add(HostFragment.newInstance(showsFragment));
+    }
+    
     
     override fun onCreate(savedInstanceState: Bundle?) {
         
@@ -40,12 +48,13 @@ class MainActivity : AppCompatActivity(), MainContracts.View {
         
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager);
+        pagerAdapter = SectionsPagerAdapter(supportFragmentManager);
+        viewPager = findViewById(R.id.view_pager);
         
         // Set up the ViewPager with the sections adapter.
-        fragment_container.adapter = mSectionsPagerAdapter;
-        fragment_container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs));
-        tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(fragment_container));
+        viewPager.adapter = pagerAdapter;
+        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs));
+        tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         
     }
     
@@ -83,20 +92,8 @@ class MainActivity : AppCompatActivity(), MainContracts.View {
         }
         
         override fun getItem(position: Int): Fragment {
-            
             assert(position < 0 || position > 1);
-            
-            if( position == 0 ) {
-                val fragment = HomeFragment.newInstance(Section.MOVIES);
-                return fragment;
-            }
-            
-            if( position == 1 ) {
-                val fragment = HomeFragment.newInstance(Section.SHOWS);
-                return fragment;
-            }
-            
-            return Fragment();
+            return fragmentTabs[position];
         }
         
     }
@@ -105,17 +102,13 @@ class MainActivity : AppCompatActivity(), MainContracts.View {
         when( section ) {
             Section.MOVIES -> {
                 val fragment: MovieListFragment = MovieListFragment.newInstance(category);
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .addToBackStack("MOVIES")
-                        .commit();
+                val hostFragment = pagerAdapter?.getItem(viewPager.currentItem) as HostFragment;
+                hostFragment.replaceFragment(fragment, true);
             }
             Section.SHOWS -> {
                 val fragment: TvShowListFragment = TvShowListFragment.newInstance(category);
-                supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .addToBackStack("SHOWS")
-                        .commit();
+                val hostFragment = pagerAdapter?.getItem(viewPager.currentItem) as HostFragment;
+                hostFragment.replaceFragment(fragment, true);
             }
         }
     }

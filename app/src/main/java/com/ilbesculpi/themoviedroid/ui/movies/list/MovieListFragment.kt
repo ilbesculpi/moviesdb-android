@@ -10,6 +10,7 @@ import com.ilbesculpi.themoviedroid.R
 import com.ilbesculpi.themoviedroid.domain.models.Category
 import com.ilbesculpi.themoviedroid.domain.models.Movie
 import com.ilbesculpi.themoviedroid.ui.common.BaseFragmentView
+import kotlinx.android.synthetic.main.main_layout.*
 import javax.inject.Inject
 
 /**
@@ -55,7 +56,6 @@ class MovieListFragment : BaseFragmentView(), MovieList.View {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.movie_list_layout, container, false);
         listView = view.findViewById(android.R.id.list);
-        
         return view;
     }
     
