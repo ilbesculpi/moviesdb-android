@@ -1,6 +1,7 @@
 package com.ilbesculpi.themoviedroid.ui.movies.list
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.ilbesculpi.themoviedroid.R
 import com.ilbesculpi.themoviedroid.domain.models.Movie
+import com.squareup.picasso.Picasso
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 
 class MovieListAdapter(context: Context, resourceId: Int, var objects: List<Movie>)
@@ -22,9 +26,7 @@ class MovieListAdapter(context: Context, resourceId: Int, var objects: List<Movi
         if( convertView == null ) {
             row = LayoutInflater.from(context)
                     .inflate(R.layout.movie_list_item, parent, false);
-            viewHolder = MovieViewHolder();
-            viewHolder.imageView = row.findViewById(R.id.image);
-            viewHolder.titleLabel = row.findViewById(R.id.title);
+            viewHolder = MovieViewHolder(row);
             row.tag = viewHolder;
         }
         else {
@@ -45,14 +47,31 @@ class MovieListAdapter(context: Context, resourceId: Int, var objects: List<Movi
         return objects.size;
     }
     
-    private class MovieViewHolder {
+    private class MovieViewHolder(rootView: View) {
         
-        lateinit var imageView: ImageView;
-        lateinit var titleLabel: TextView;
+        var imageView: ImageView;
+        var titleLabel: TextView;
+        var dateLabel: TextView;
+        var popularityLabel: TextView;
+        
+        init {
+            imageView = rootView.findViewById(R.id.image);
+            titleLabel = rootView.findViewById(R.id.title);
+            dateLabel = rootView.findViewById(R.id.date);
+            popularityLabel = rootView.findViewById(R.id.popularity);
+        }
         
         fun display(movie: Movie, context: Context) {
             //imageView.setImageResource(movie.iconId);
             titleLabel.text = movie.title;
+            dateLabel.text = DateFormat.getDateInstance().format(movie.releaseDate);
+            popularityLabel.text = movie.popularityText;
+            // download image using picasso
+            val posterUri = Uri.parse(movie.posterUrl);
+            Picasso.with(context)
+                    .load(posterUri)
+                    .placeholder(R.drawable.placeholder)
+                    .into(imageView);
         }
         
     }

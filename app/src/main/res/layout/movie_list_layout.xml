@@ -9,9 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/movies"
-        android:textSize="32sp"
-        android:padding="8dp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        style="@style/AppTheme.Common.Title" />
 
     <ListView
         android:id="@android:id/list"

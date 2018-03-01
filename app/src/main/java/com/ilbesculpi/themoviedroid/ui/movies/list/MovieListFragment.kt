@@ -66,6 +66,7 @@ class MovieListFragment : BaseFragmentView(), MovieList.View {
     
     override fun onResume() {
         super.onResume();
+        presenter.onResume();
     }
     
     override fun displayMovies(movies: List<Movie>) {

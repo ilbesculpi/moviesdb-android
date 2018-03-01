@@ -17,10 +17,31 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!-- Home -->
-    <style name="AppTheme.Home" />
-    <style name="AppTheme.Home.ListItem">
+    <!-- Common -->
+    <style name="AppTheme.Common" parent="AppTheme" />
+    <style name="AppTheme.Common.Title" parent="AppTheme.Common">
         <item name="android:textSize">@dimen/title_size</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/margin_md</item>
+        <item name="android:paddingBottom">@dimen/padding_md</item>
+    </style>
+
+    <!-- Home -->
+    <style name="AppTheme.Home" parent="AppTheme.Common" />
+    <style name="AppTheme.Home.ListItem" parent="AppTheme.Home">
+        <item name="android:textSize">@dimen/title_size</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <!-- Movies -->
+    <style name="AppTheme.Movies" parent="AppTheme.Common" />
+    <style name="AppTheme.Movies.Title" parent="AppTheme.Movies">
+        <item name="android:textSize">@dimen/title_size</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+    <style name="AppTheme.Movies.Date" parent="AppTheme.Movies">
+        <item name="android:textSize">@dimen/text_sm</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
