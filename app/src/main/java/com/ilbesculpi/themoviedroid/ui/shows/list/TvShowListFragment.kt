@@ -7,16 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ilbesculpi.themoviedroid.R
+import com.ilbesculpi.themoviedroid.domain.models.Category
 
 /**
  * TV Shows List Screen.
  */
 class TvShowListFragment : Fragment() {
     
+    lateinit var category: Category;
+    
     companion object {
-        fun newInstance(): TvShowListFragment {
+        fun newInstance(category: Category): TvShowListFragment {
             val fragment = TvShowListFragment();
             val args = Bundle();
+            args.putSerializable("category", category);
             fragment.arguments = args;
             return fragment;
         }
@@ -25,7 +29,7 @@ class TvShowListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         if(arguments != null) {
-        
+            category = arguments.getSerializable("category") as Category;
         }
     }
     

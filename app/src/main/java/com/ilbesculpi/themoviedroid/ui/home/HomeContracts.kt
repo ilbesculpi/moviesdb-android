@@ -12,6 +12,7 @@ interface Home {
         var presenter: Home.Presenter;
     
         fun displayCategories(categories: List<Category>);
+        fun navigateToCategoryScreen(category: Category);
         
     }
     
