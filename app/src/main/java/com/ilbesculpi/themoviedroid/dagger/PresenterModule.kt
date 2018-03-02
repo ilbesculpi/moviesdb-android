@@ -19,6 +19,7 @@ class PresenterModule {
     fun provideHomePresenter(context: Context) : Home.Presenter {
         val presenter = HomePresenter();
         (context as TheMovieDroidApp).mApplicationComponent.inject(presenter);
+        presenter.context = context;
         return presenter;
     }
     
@@ -26,6 +27,7 @@ class PresenterModule {
     fun provideMovieListPresenter(context: Context) : MovieList.Presenter {
         val presenter = MovieListPresenter();
         (context as TheMovieDroidApp).mApplicationComponent.inject(presenter);
+        presenter.context = context;
         return presenter;
     }
 

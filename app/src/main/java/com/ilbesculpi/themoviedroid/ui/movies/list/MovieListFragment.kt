@@ -11,6 +11,7 @@ import com.ilbesculpi.themoviedroid.domain.models.Category
 import com.ilbesculpi.themoviedroid.domain.models.Movie
 import com.ilbesculpi.themoviedroid.ui.common.BaseFragmentView
 import kotlinx.android.synthetic.main.main_layout.*
+import kotlinx.android.synthetic.main.movie_list_layout.*
 import javax.inject.Inject
 
 /**
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class MovieListFragment : BaseFragmentView(), MovieList.View {
     
     @Inject
-    lateinit var presenter: MovieList.Presenter;
+    override lateinit var presenter: MovieList.Presenter;
     
     lateinit var category: Category;
     
@@ -45,10 +46,15 @@ class MovieListFragment : BaseFragmentView(), MovieList.View {
         configureComponents();
     }
     
+    override fun onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+    
     override fun configureComponents() {
         appComponent.inject(this);
-        presenter.category = category;
         presenter.view = this;
+        presenter.category = category;
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -67,6 +73,10 @@ class MovieListFragment : BaseFragmentView(), MovieList.View {
     override fun onResume() {
         super.onResume();
         presenter.onResume();
+    }
+    
+    override fun displayTitle(title: String) {
+        screen_title.text = title;
     }
     
     override fun displayMovies(movies: List<Movie>) {
