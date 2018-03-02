@@ -1,10 +1,11 @@
 package com.ilbesculpi.themoviedroid.domain.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.util.*
 
 
-class Movie {
+class Movie: Serializable {
     
     var id: Int? = null;
     
@@ -60,4 +61,5 @@ class Movie {
             }
             return null;
         }
+    
 }

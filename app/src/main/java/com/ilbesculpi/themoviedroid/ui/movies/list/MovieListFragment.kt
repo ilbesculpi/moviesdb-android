@@ -9,8 +9,9 @@ import android.widget.Toast
 import com.ilbesculpi.themoviedroid.R
 import com.ilbesculpi.themoviedroid.domain.models.Category
 import com.ilbesculpi.themoviedroid.domain.models.Movie
+import com.ilbesculpi.themoviedroid.domain.models.Section
 import com.ilbesculpi.themoviedroid.ui.common.BaseFragmentView
-import kotlinx.android.synthetic.main.main_layout.*
+import com.ilbesculpi.themoviedroid.ui.movies.detail.MovieDetailFragment
 import kotlinx.android.synthetic.main.movie_list_layout.*
 import javax.inject.Inject
 
@@ -62,6 +63,10 @@ class MovieListFragment : BaseFragmentView(), MovieList.View {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.movie_list_layout, container, false);
         listView = view.findViewById(android.R.id.list);
+        listView.setOnItemClickListener { adapterView, view, i, l ->
+            val movie = listAdapter.objects.get(i);
+            navigateToMovieDetailScreen(movie);
+        }
         return view;
     }
     
@@ -86,6 +91,11 @@ class MovieListFragment : BaseFragmentView(), MovieList.View {
     
     override fun showUserError(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+    
+    fun navigateToMovieDetailScreen(movie: Movie) {
+        val fragment = MovieDetailFragment.newInstance(movie);
+        mHolder.navigateToFragment(fragment, Section.MOVIES, true);
     }
     
 }

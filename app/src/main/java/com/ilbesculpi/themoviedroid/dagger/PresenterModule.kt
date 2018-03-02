@@ -4,6 +4,8 @@ import android.content.Context
 import com.ilbesculpi.themoviedroid.TheMovieDroidApp
 import com.ilbesculpi.themoviedroid.ui.home.Home
 import com.ilbesculpi.themoviedroid.ui.home.HomePresenter
+import com.ilbesculpi.themoviedroid.ui.movies.detail.MovieDetail
+import com.ilbesculpi.themoviedroid.ui.movies.detail.MovieDetailPresenter
 import com.ilbesculpi.themoviedroid.ui.movies.list.MovieList
 import com.ilbesculpi.themoviedroid.ui.movies.list.MovieListPresenter
 import dagger.Module
@@ -26,6 +28,14 @@ class PresenterModule {
     @Provides
     fun provideMovieListPresenter(context: Context) : MovieList.Presenter {
         val presenter = MovieListPresenter();
+        (context as TheMovieDroidApp).mApplicationComponent.inject(presenter);
+        presenter.context = context;
+        return presenter;
+    }
+    
+    @Provides
+    fun provideMovieDetailPresenter(context: Context) : MovieDetail.Presenter {
+        val presenter = MovieDetailPresenter();
         (context as TheMovieDroidApp).mApplicationComponent.inject(presenter);
         presenter.context = context;
         return presenter;
