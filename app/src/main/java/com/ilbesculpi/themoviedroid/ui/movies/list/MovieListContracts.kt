@@ -9,14 +9,17 @@ interface MovieList {
     
     interface View : Base.View {
     
+        var presenter: MovieList.Presenter;
+        
         fun showUserError(message: String);
+        fun displayTitle(title: String);
         fun displayMovies(movies: List<Movie>);
         
     }
     
     interface Presenter : Base.Presenter {
         
-        var view: View;
+        var view: MovieList.View?;
         var category: Category;
         
     }

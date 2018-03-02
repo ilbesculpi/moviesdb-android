@@ -15,6 +15,7 @@ interface Base {
         fun onStop();
         fun onResume();
         fun onPause();
+        fun onDestroy();
         
     }
     

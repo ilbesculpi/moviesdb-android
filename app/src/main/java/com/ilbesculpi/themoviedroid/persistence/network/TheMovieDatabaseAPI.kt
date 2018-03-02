@@ -14,7 +14,7 @@ interface TheMovieDatabaseAPI {
     @GET("movie/top_rated")
     fun topRatedMovies(@Query("page") page: Int, @Query("language") language: String) : Call<MovieListResponse>;
     
-    @GET("movie_upcoming")
+    @GET("movie/upcoming")
     fun upcomingMovies(@Query("page") page: Int, @Query("language") language: String) : Call<MovieListResponse>;
 
 }

@@ -38,6 +38,10 @@ class MainActivity : AppCompatActivity(), MainContracts.View {
         fragmentTabs.add(HostFragment.newInstance(showsFragment));
     }
     
+    val hostFragment: HostFragment?
+        get() {
+            return pagerAdapter?.getItem(viewPager.currentItem) as HostFragment;
+        }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         
@@ -80,6 +84,22 @@ class MainActivity : AppCompatActivity(), MainContracts.View {
         return super.onOptionsItemSelected(item);
     }
     
+    /**
+     * Handle back pressed.
+     * If there are fragments in the current stack, navigate to previous fragment.
+     * Otherwise, exit the app.
+     */
+    override fun onBackPressed() {
+        if( hostFragment?.getChildFragmentManager()?.backStackEntryCount!! > 0 ) {
+            // handle back action (navigate to previous fragment)
+            hostFragment?.getChildFragmentManager()?.popBackStack();
+        }
+        else {
+            // default behavior (exit app)
+            super.onBackPressed();
+        }
+    }
+    
     
     /**
      * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -102,13 +122,11 @@ class MainActivity : AppCompatActivity(), MainContracts.View {
         when( section ) {
             Section.MOVIES -> {
                 val fragment: MovieListFragment = MovieListFragment.newInstance(category);
-                val hostFragment = pagerAdapter?.getItem(viewPager.currentItem) as HostFragment;
-                hostFragment.replaceFragment(fragment, true);
+                hostFragment?.replaceFragment(fragment, true);
             }
             Section.SHOWS -> {
                 val fragment: TvShowListFragment = TvShowListFragment.newInstance(category);
-                val hostFragment = pagerAdapter?.getItem(viewPager.currentItem) as HostFragment;
-                hostFragment.replaceFragment(fragment, true);
+                hostFragment?.replaceFragment(fragment, true);
             }
         }
     }

@@ -6,8 +6,15 @@
     <string name="tv_shows">TV Shows</string>
 
     <string name="popular">Popular</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="popular_tv_shows">Popular Shows</string>
+
     <string name="top_rated">Top Rated</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="top_rated_tv_shows">Top Rated Shows</string>
+
     <string name="upcoming">Upcoming</string>
+    <string name="upcoming_movies">Upcoming</string>
 
     <string name="title_activity_main_layout">MainActivity</string>
     <string name="action_settings">Settings</string>
