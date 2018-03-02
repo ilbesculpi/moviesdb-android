@@ -20,9 +20,9 @@ class MovieListPresenter : BasePresenter(), MovieList.Presenter {
         
         // display screen title
         val title: String = when( category ) {
-            Category.POPULAR -> context.getString(R.string.popular)
-            Category.TOP_RATED -> context.getString(R.string.top_rated)
-            Category.UPCOMING -> context.getString(R.string.upcoming)
+            Category.POPULAR -> context.getString(R.string.popular_movies)
+            Category.TOP_RATED -> context.getString(R.string.top_rated_movies)
+            Category.UPCOMING -> context.getString(R.string.upcoming_movies)
         };
         view?.displayTitle(title);
     
