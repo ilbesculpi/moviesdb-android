@@ -16,6 +16,7 @@ interface MovieDetail {
     interface Presenter: Base.Presenter {
         
         var view: MovieDetail.View?
+        var movie: Movie;
         
     }
 

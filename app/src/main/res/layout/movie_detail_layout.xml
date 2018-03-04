@@ -1,12 +1,29 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ilbesculpi.themoviedroid.ui.movies.detail.MovieDetailFragment">
+    android:orientation="vertical"
+    tools:context=".ui.movies.detail.MovieDetailFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="MOVIE DETAIL" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/posterImage"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/placeholder" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="MOVIE DETAIL" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
