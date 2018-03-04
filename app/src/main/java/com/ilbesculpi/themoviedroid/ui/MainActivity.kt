@@ -131,4 +131,8 @@ class MainActivity : AppCompatActivity(), MainContracts.View {
         }
     }
     
+    override fun navigateToFragment(fragment: Fragment, section: Section, addToBackstack: Boolean) {
+        hostFragment?.replaceFragment(fragment, addToBackstack);
+    }
+    
 }
